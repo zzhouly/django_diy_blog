@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
-ALLOWED_HOSTS = ['127.0.0.1','155.248.207.122', 'secret-wildwood-68008.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','155.248.207.122', '.herokuapp.com']
 
 
 # Application definition
