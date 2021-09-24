@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block title %}Blog Following{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+	{% if posts %}
+	<br>
+		{% for blog in posts %}
+			<div class="card border-primary mb-3">
+				<div class="card-body">
+		        	<h4 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h4>
+		        	<p class="blog-post-meta">{{ blog.post_date }} - <a href="{% url 'profile_page' blog.author.profile.id %}">{{ blog.author }}</a> - <a href="{% url 'blogs-by-category' blog.category|slugify %}">{{ blog.category }}</a></p>
+		        	<p class="card-text">{{ blog.description|safe|slice:":200" }}...</p>
+		    	</div>
+
+	        </div>
+        {% endfor %}
+        
+	{% endif %}
+
+{% endif %}
+
+{% endblock %}

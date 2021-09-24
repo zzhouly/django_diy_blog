@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+{% block title %}delete {{blog.name}}{% endblock %}
+
+{% block content %}
+
+<br><br>
+<div class="form-group">
+<p>Are you sure you want to delete? <a href="{% url 'blog-detail' blog.pk%}">{{ blog.name }}</a> by {{blog.author}}</p>
+
+<form action="" method="Post" >
+	{% csrf_token %}
+	<input type="submit" name="delete" value="delete" class="btn btn-outline-warning">
+	<a href="../" class="btn btn-outline-success">Cancle</a>
+</form>
+</div>
+{% endblock %}

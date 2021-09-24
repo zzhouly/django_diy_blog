@@ -1,0 +1,104 @@
+
+{% extends "base_generic.html" %}
+{% load static %}
+{% block title %}profile{% endblock %}
+
+
+  {% block content %}
+    <br>
+    <h3>{{ profile }}</h3>
+    {% if user.is_authenticated and user.id != profile.user.id %}
+    <br>
+    <div>
+      {% if followed %}
+        <button class="btn btn-outline-success">follow <i class="fas fa-check"></i></button>
+      {% else %}
+        <button class="btn btn-outline-primary">follow <i class="fas fa-plus"></i></button>
+      {% endif %}
+      <span id="follower">{{ total_follower }}</span>
+    </div>
+
+    <script type="text/javascript">
+
+      const csrftoken = getCookie('csrftoken');
+      $(".btn").click(function() {
+        $(this).toggleClass("btn-outline-success btn-outline-primary");
+        $('.fas').toggleClass("fa-check fa-plus");
+        $.ajax({
+            url: "{% url 'follow' profile.pk %}",
+            type: 'post',
+            data: {
+                profile_id: "{{ profile.id }}"
+            },
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            dataType: 'html',
+            success: function (data) {
+               console.log(data);
+               $('#follower').html(data);
+
+             
+            }
+        });
+
+
+      });
+
+      function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+    </script>
+    <br>
+    {% endif %}
+    
+
+     <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-2">
+            {% if profile.profile_image %}
+              <img src="{{ profile.profile_image.url }}" class="img-fluid rounded-start" style="height: 9rem; width: 100%" alt="...">
+            {% else %}
+              <img src="{% static 'img/blank-profile.png'%}" class="img-fluid rounded-start">
+            {% endif %}
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ profile.user.first_name }} {{ profile.user.last_name }} 
+              </h5>
+
+              <p class="small text-muted">
+                wesite | facebook | twitter | insgram | GitHub
+              </p>
+              <p class="card-text">{{ profile.bio }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <h3>Blog List</h3>
+        {% for blog in blog_list %}
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+                <h4 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h4>
+                <p class="blog-post-meta">{{ blog.post_date }} - <a href="{% url 'blogs-by-category' blog.category|slugify %}">{{ blog.category }}</a></p>
+                <p class="card-text">{{ blog.description|safe|slice:":200" }}...</p>
+          </div>
+
+        </div>
+        {% endfor %}
+
+{% endblock %}

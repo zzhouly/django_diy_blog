@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block title %}Add New Image{% endblock %}
+
+{% block content %}
+
+<br>
+
+{% if user.is_authenticated %}
+
+<div class="form-group">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if form.image %}
+        <button class="btn btn-outline-success">Add</button>
+        <a href="../update" class="btn btn-outline-primary">Cancle</a>
+        {% endif %}
+        
+    </form>
+</div>
+
+{% else %}
+    You are not allowed here!!!
+{% endif %}
+
+{% endblock %}

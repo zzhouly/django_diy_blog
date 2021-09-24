@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+{% block title %}profile create{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h3>Create Profile</h3>
+
+<div class="form-group">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-secondary">Post</button>
+        
+    </form>
+</div>
+{% else %}
+    You are not allowed here!!!
+{% endif %}
+
+{% endblock %}

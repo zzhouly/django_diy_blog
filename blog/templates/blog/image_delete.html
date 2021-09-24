@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+{% block title %}delete image {% endblock %}
+
+{% block content %}
+
+<br><br>
+<div class="form-group">
+<p>Are you sure you want to delete?</p>
+<div class="holder">
+<img src="{{ image.image.url }}">
+</div>
+<form action="" method="Post" >
+	{% csrf_token %}
+	<br>
+	<input type="submit" name="delete" class="btn btn-outline-warning">
+</form>
+</div>
+{% endblock %}

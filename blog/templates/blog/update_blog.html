@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% block title %}Update Blog{% endblock %}
+
+{% block content %}
+{% if blog.author.id == user.id %}
+<br>
+{% for image in blog.image_set.all %}
+
+    <div class="holder">
+      <img src="{{ image.image.url }}" alt="...">
+      <form action="{% url 'blog_image_delete' image.id %}" method="post">
+        {% csrf_token %}
+          <button type="submit" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+      </form>
+    
+    </div>
+
+{% endfor %}
+<div>
+<a href="{% url 'blog_image' blog.id %}" class="add-image"><i class="fas fa-images fa-2x "></i></a>
+<span class="hide" display="inline-block">Add images</span>
+</div>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+
+    <input class="btn btn-outline-warning" type="submit" value="Update" />
+    <a href="../" class="btn btn-outline-success">Cancle</a>
+    
+</form>
+
+<!--  -->
+
+{% else %}
+    <h4>You are not allowed here!!!</h4>
+
+{% endif %}
+{% endblock %}

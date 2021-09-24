@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<p>Post your comment for: <a href="{% url 'blog-detail' blog.pk %}">{{blog.name}}</a></p>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="btn btn-outline-primary"/>
+    <a href="../" class="btn btn-outline-secondary">Cancle</a>
+    
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% block title %}blogs about {{ category }}{% endblock %}
+
+
+  {% block content %}
+
+      <h2>{{ category }}</h2>
+      <hr>
+     
+      {% if category_blog %}
+
+      <ul>
+
+        {% for blog in category_blog %}
+          <div class="card border-primary mb-3">
+            <div class="card-body">
+              <h4 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.name }}</a></h4>
+              <p class="blog-post-meta">{{ blog.post_date }} - <a href="{% url 'profile_page' blog.author.profile.id %}">{{ blog.author }}</a></p>
+              <p class="card-text">{{ blog.description|safe|slice:":200" }}...</p>
+            </div>
+
+          </div>
+        {% endfor %}
+
+      </ul>
+      {% else %}
+        <p>This category doesn't have anything yet.</p>
+      {% endif %}  
+
+{% endblock %}

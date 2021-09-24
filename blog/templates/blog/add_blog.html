@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% block title %}Add New Blog{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="form-group">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{postForm.media}}
+        {{ postForm.as_p }}
+        {{ imageForm.as_p }}
+        <button class="btn btn-outline-primary">Post</button>
+        <a href="{% url 'home' %}" class="btn btn-outline-success">Cancle</a>
+        
+    </form>
+</div>
+
+<script type="text/javascript">
+    
+    var name = "{{ user.id }}";
+    document.getElementById("user").value = name;
+</script>
+{% else %}
+    You are not allowed here!!!
+{% endif %}
+
+{% endblock %}
+

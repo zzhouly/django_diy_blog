@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block title %}Following{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+	{% if object_list %}
+	<br>
+	<div class="row">       
+        {% for p in object_list %}
+        <div class="col-sm-6">
+
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-6">
+                  {% if p.profile.profile_image %}
+                      <img src="{{ p.profile.profile_image.url }}" class="img-fluid rounded-start" style="height: 10rem; width: auto;"  alt="...">
+                    {% else %}
+                      <img src="{% static 'img/blank-profile.png'%}" class="img-fluid rounded-start" style="height: 10rem; width: auto;">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'profile_page' p.profile.id %}">{{ p.username }}</a></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+        
+	{% endif %}
+
+{% endif %}
+
+{% endblock %}
