@@ -1,11 +1,15 @@
 from django import forms
 from .models import Blog, Category, Image, BlogComment
+from django.db.utils import OperationalError
 
-choices = Category.objects.all().values_list('name', 'name')
-choices_list=[]
+try:
+	choices = Category.objects.all().values_list('name', 'name')
+	choices_list=[]
 
-for choice in choices:
-	choices_list.append(choice)
+	for choice in choices:
+		choices_list.append(choice)
+except OperationalError:
+    pass
 
 class PostForm(forms.ModelForm):
 
