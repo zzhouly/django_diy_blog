@@ -2,14 +2,7 @@ from django import forms
 from .models import Blog, Category, Image, BlogComment
 from django.db.utils import OperationalError
 
-# try:
-# 	choices = Category.objects.all().values_list('name', 'name')
-# 	choices_list=[]
 
-# 	for choice in choices:
-# 		choices_list.append(choice)
-# except OperationalError:
-#     pass
 
 class PostForm(forms.ModelForm):
 
@@ -21,7 +14,6 @@ class PostForm(forms.ModelForm):
 			'name': forms.TextInput(attrs={'class': 'form-control'}),
 			'author': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id': 'user', 'type': 'hidden'}),
 			'category': forms.TextInput(attrs={'class': 'form-control'}),
-			# 'category': forms.Select(choices=choices_list, attrs={'class': 'form-control'}),
 			'description':forms.Textarea(attrs={'class': 'form-control'}),
 		}
 
