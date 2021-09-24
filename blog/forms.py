@@ -24,7 +24,7 @@ class EditForm(forms.ModelForm):
 
 		widgets = {
 			'name': forms.TextInput(attrs={'class': 'form-control'}),
-			'category': forms.Select(choices=choices_list, attrs={'class': 'form-control'}),
+			'category': forms.TextInput(attrs={'class': 'form-control'}),
 			'description':forms.Textarea(attrs={'class': 'form-control'}),
 			# 'header_image': forms.ClearableFileInput(attrs={'multiple': True}),
 		}
